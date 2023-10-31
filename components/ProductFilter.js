@@ -19,35 +19,33 @@ import { useHeaderHeight, getDefaultHeaderHeight } from '@react-navigation/eleme
 import { useGetProducts, useGetProductsInfinite } from '../hooks/product/useGetProducts'
 import productService from '../services/product.service'
 
-export default function ProductFilter({isVisible, setIsVisible, f, setF}){
+export default function ProductFilter({ isVisible, setIsVisible, f, setF }) {
+  const resetFilter = {
+    calories__gte: null,
+    calories__lte: null,
+    carbohydrates__gte: null,
+    carbohydrates__lte: null,
+    fats__gte: null,
+    fats__lte: null,
+    squirrels__gte: null,
+    squirrels__lte: null
+  }
+  const [filters, setFilters] = React.useState(f)
+  console.log(filters)
 
+  const resetFilters = () => {
+    setFilters(resetFilter)
+    setF({})
+  }
 
-    const resetFilter = {
-        calories__gte: null,
-        calories__lte:null,
-        carbohydrates__gte:null,
-        carbohydrates__lte:null,
-        fats__gte:null,
-        fats__lte:null,
-        squirrels__gte:null,
-        squirrels__lte:null,
-    }
-    const [filters, setFilters] = React.useState(f)
+  const pressed = () => {
     console.log(filters)
-
-    const resetFilters = () => {
-        setFilters(resetFilter)
-        setF({})
-    }
-
-    const pressed = () => {
-        console.log(filters)
-        setF(filters)
-        setIsVisible(false)
-    }
-    return (
-        <View>
-        <Modal visible={isVisible}>
+    setF(filters)
+    setIsVisible(false)
+  }
+  return (
+    <View>
+      <Modal visible={isVisible}>
         <SafeAreaView style={modalStyles.container}>
           <View style={modalStyles.headContainer}>
             <AntDesign
@@ -76,11 +74,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.calories__gte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        calories__gte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    calories__gte: text
+                  })
+                  console.log(filters)
                 }}
               />
               <PaperTextInput
@@ -94,11 +92,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.calories__lte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        calories__lte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    calories__lte: text
+                  })
+                  console.log(filters)
                 }}
               />
             </View>
@@ -115,11 +113,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.fats__gte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        fats__gte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    fats__gte: text
+                  })
+                  console.log(filters)
                 }}
               />
               <PaperTextInput
@@ -133,11 +131,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.fats__lte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        fats__lte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    fats__lte: text
+                  })
+                  console.log(filters)
                 }}
               />
             </View>
@@ -154,11 +152,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.squirrels__gte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        squirrels__gte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    squirrels__gte: text
+                  })
+                  console.log(filters)
                 }}
               />
               <PaperTextInput
@@ -172,11 +170,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.squirrels__lte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        squirrels__lte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    squirrels__lte: text
+                  })
+                  console.log(filters)
                 }}
               />
             </View>
@@ -193,11 +191,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.carbohydrates__gte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        carbohydrates__gte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    carbohydrates__gte: text
+                  })
+                  console.log(filters)
                 }}
               />
               <PaperTextInput
@@ -211,11 +209,11 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
                 keyboardType='phone-pad'
                 value={filters.carbohydrates__lte}
                 onChangeText={text => {
-                    setFilters({
-                        ...filters,
-                        carbohydrates__lte: text
-                    })
-                    console.log(filters)
+                  setFilters({
+                    ...filters,
+                    carbohydrates__lte: text
+                  })
+                  console.log(filters)
                 }}
               />
             </View>
@@ -232,78 +230,76 @@ export default function ProductFilter({isVisible, setIsVisible, f, setF}){
           </View>
         </SafeAreaView>
       </Modal>
-      </View>
-    )
+    </View>
+  )
 }
 const modalStyles = StyleSheet.create({
-    loading: {
-      textAlign: "center",
-      alignSelf: 'center',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlignVertical: 'center',
-      alignContent: 'center',
-    },
-    loadingConainer: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center'
-  
-    },  
-    container: {
-      margin: 20,
-      flexDirection: 'column',
-      flex: 1
-    },
-    headContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    },
-    headTitle: {
-      fontFamily: 'mt-semibold',
-      fontSize: 15,
-      flex: 1
-    },
-    headButton: {
-      flex: 1,
-      color: '#749063',
-      fontFamily: 'mt-medium',
-      fontSize: 15
-    },
-    headClose: {
-      flex: 1
-    },
-  
-    actionContainer: {
-      justifyContent: 'flex-end'
-    },
-    actionButton: {
-      // backgroundColor: "#1111",
-      // color: "#007AFF"
-    },
-    contentContainer: {
-      flex: 1,
-      marginTop: 35,
-      fontSize: 15
-    },
-    contentInput: {
-      // height: 40,
-      fontFamily: 'mt-semibold',
-      fontSize: 15
-      // borderBottomWidth: 1,
-      // borderBottomColor: 'grey',
-      // marginTop: 15,
-    },
-    marginTop15: {
-      // marginTop: 15
-    },
-    filterSet: {
-      marginTop: 20
-    },
-    filterSetTitle: {
-      fontFamily: 'mt-semibold',
-      fontSize: 15
-    }
-  })
-  
+  loading: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlignVertical: 'center',
+    alignContent: 'center'
+  },
+  loadingConainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  container: {
+    margin: 20,
+    flexDirection: 'column',
+    flex: 1
+  },
+  headContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  headTitle: {
+    fontFamily: 'mt-semibold',
+    fontSize: 15,
+    flex: 1
+  },
+  headButton: {
+    flex: 1,
+    color: '#749063',
+    fontFamily: 'mt-medium',
+    fontSize: 15
+  },
+  headClose: {
+    flex: 1
+  },
+
+  actionContainer: {
+    justifyContent: 'flex-end'
+  },
+  actionButton: {
+    // backgroundColor: "#1111",
+    // color: "#007AFF"
+  },
+  contentContainer: {
+    flex: 1,
+    marginTop: 35,
+    fontSize: 15
+  },
+  contentInput: {
+    // height: 40,
+    fontFamily: 'mt-semibold',
+    fontSize: 15
+    // borderBottomWidth: 1,
+    // borderBottomColor: 'grey',
+    // marginTop: 15,
+  },
+  marginTop15: {
+    // marginTop: 15
+  },
+  filterSet: {
+    marginTop: 20
+  },
+  filterSetTitle: {
+    fontFamily: 'mt-semibold',
+    fontSize: 15
+  }
+})

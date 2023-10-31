@@ -14,48 +14,39 @@ export default function ProductDetail({ navigation, route }) {
     }
   })
 
-  const {data, isLoading} = useGetProduct(route.params.data.id)
+  const { data, isLoading } = useGetProduct(route.params.data.id)
 
-  if (isLoading){
+  if (isLoading) {
+    return <Text>Loading</Text>
+  } else {
     return (
-      <Text>Loading</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={[styles.containerHead, styles.card]}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../assets/icon.png')} // Замените на путь к вашему изображению
+              style={styles.image}
+            />
+            {/* <Text>left</Text> */}
+          </View>
+          <View style={styles.textContainer}>
+            {/* <Text>Ваш текст здесь</Text> */}
+            <Text style={styles.headTitle}>Состав:</Text>
+            <ProductStructure title='ккал' value={data.calories} />
+            <ProductStructure title='жиры' value={data.fats} />
+            <ProductStructure title='белки' value={data.squirrels} />
+            <ProductStructure title='углеводы' value={data.carbohydrates} />
+          </View>
+        </View>
+        {data?.description ? (
+          <View style={[styles.card, styles.description]}>
+            <Text style={styles.descriptionTitle}>Описание:</Text>
+            <Text style={styles.descriptionText}>{data.description}</Text>
+          </View>
+        ) : null}
+      </SafeAreaView>
     )
-  }else {
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={[styles.containerHead, styles.card]}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require('../assets/icon.png')} // Замените на путь к вашему изображению
-            style={styles.image}
-          />
-          {/* <Text>left</Text> */}
-        </View>
-        <View style={styles.textContainer}>
-          {/* <Text>Ваш текст здесь</Text> */}
-          <Text style={styles.headTitle}>Состав:</Text>
-          <ProductStructure title='ккал' value={data.calories} />
-          <ProductStructure title='жиры' value={data.fats} />
-          <ProductStructure title='белки' value={data.squirrels} />
-          <ProductStructure title='углеводы' value={data.carbohydrates} />
-        </View>
-      </View>
-      {
-      data?.description ?
-      <View style={[styles.card, styles.description]}>
-        <Text style={styles.descriptionTitle}>Описание:</Text>
-        <Text style={styles.descriptionText}>
-          {data.description}
-        </Text>
-      </View>
-      :
-        null
-      }
-
-    </SafeAreaView>
-  )
-}
+  }
 }
 
 const styles = StyleSheet.create({

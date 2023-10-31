@@ -3,14 +3,13 @@ import * as React from 'react'
 import { View, FlatList, StyleSheet, Scroll } from 'react-native'
 import ProductItem from './ProductItem'
 
-
 export default function ProductList({ data, loadProduct, fetchNextPage, hasNextPage }) {
   const loadMore = () => {
     console.log(hasNextPage)
     if (hasNextPage) {
-      fetchNextPage();
+      fetchNextPage()
     }
-  };
+  }
   return (
     <View style={styles.container}>
       <FlatList

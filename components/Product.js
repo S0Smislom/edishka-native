@@ -19,25 +19,23 @@ import { useGetProducts, useGetProductsInfinite } from '../hooks/product/useGetP
 import productService from '../services/product.service'
 import ProductFilter from './ProductFilter'
 
-
 export default function Home({ navigation }) {
-
   const [search, setSearch] = React.useState('')
   const [isVisible, setIsVisible] = React.useState(false)
   const [height, setHeight] = React.useState(useHeaderHeight())
   const [offset, setOffset] = React.useState(0)
 
   const [filters, setFilters] = React.useState({})
-  
-  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } = useGetProductsInfinite({title:search, ...filters})
 
-  
+  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
+    useGetProductsInfinite({ title: search, ...filters })
+
   const loadProduct = data => {
     console.log('daat', data)
     navigation.navigate('ProductDetail', { data: data })
   }
 
-  const searchRequest = async () =>  {
+  const searchRequest = async () => {
     console.log(search, filters)
 
     // setFilters({
@@ -74,22 +72,31 @@ export default function Home({ navigation }) {
 
   return (
     <ScrollView style={{ backgroundColor: '#F4F6FB' }}>
-      <ProductFilter isVisible={isVisible} setIsVisible={setIsVisible} f={filters} setF={setFilters}/>
-      {isLoading ? 
+      <ProductFilter
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        f={filters}
+        setF={setFilters}
+      />
+      {isLoading ? (
         <View style={styles.loadingConainer}>
-        <Text style={styles.loading}>Loading</Text>
-      </View>
-      :
-      <View>
-        <Text> Some text</Text>
-        <ProductList data={data.pages.map(page => page.data).flat()} loadProduct={loadProduct} hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}></ProductList>
-        {/* <Button onPress={()=>setOffset(offset+LIMIT)}>еще</Button> */}
-      </View>
-    }
+          <Text style={styles.loading}>Loading</Text>
+        </View>
+      ) : (
+        <View>
+          <Text> Some text</Text>
+          <ProductList
+            data={data.pages.map(page => page.data).flat()}
+            loadProduct={loadProduct}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          ></ProductList>
+          {/* <Button onPress={()=>setOffset(offset+LIMIT)}>еще</Button> */}
+        </View>
+      )}
     </ScrollView>
   )
 }
-
 
 const styles = StyleSheet.create({
   header: {

@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import ProductDetail from './components/ProductDetail'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -22,22 +22,20 @@ const MyTheme = {
   }
 }
 
-const queryClient = new QueryClient(
-  {
-    defaultOptions: {
+const queryClient = new QueryClient({
+  defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false
     }
   }
-}
-);
+})
 
 export default function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <QueryClientProvider client={queryClient}>
-      <Tab.Navigator>
-        {/* <Tab.Screen
+        <Tab.Navigator>
+          {/* <Tab.Screen
           name='Home'
           component={Home}
           options={({ navigation }) => ({
@@ -68,31 +66,31 @@ export default function Navigation() {
             }
           })}
         /> */}
-        <Tab.Screen
-          name="products"
-          component={ProductScreen}
-          options={({ navigation }) => ({
-            headerShown: false,
-            title: "Продукты",
-            tabBarStyle: {
-              backgroundColor: '#749063'
-            },
-            tabBarLabelStyle: {
-              color: 'white',
-              fontFamily: 'mt-semibold'
-            },
-            tabBarIcon: tabInfo => {
-              return (
-                <MaterialCommunityIcons
-                  name='baguette'
-                  size={24}
-                  color={tabInfo.focused ? '#fff' : '#000'}
-                />
-              )
-            }
-          })}
-        />
-      </Tab.Navigator>
+          <Tab.Screen
+            name='products'
+            component={ProductScreen}
+            options={({ navigation }) => ({
+              headerShown: false,
+              title: 'Продукты',
+              tabBarStyle: {
+                backgroundColor: '#749063'
+              },
+              tabBarLabelStyle: {
+                color: 'white',
+                fontFamily: 'mt-semibold'
+              },
+              tabBarIcon: tabInfo => {
+                return (
+                  <MaterialCommunityIcons
+                    name='baguette'
+                    size={24}
+                    color={tabInfo.focused ? '#fff' : '#000'}
+                  />
+                )
+              }
+            })}
+          />
+        </Tab.Navigator>
       </QueryClientProvider>
     </NavigationContainer>
   )
