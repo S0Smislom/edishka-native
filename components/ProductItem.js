@@ -12,11 +12,6 @@ export default function ProductItem({ loadProduct, data }) {
 
   return (
     <TouchableOpacity onPress={cardOnPress} style={styles.card}>
-      {/* <Image
-                    source={
-                        {uri: 'https://reactnative.dev/img/tiny_logo.png',}
-                    }
-                /> */}
       <View style={styles.greyBox}>
         <Image style={styles.image} source={{ uri: `${MEDIA_API_URL}${data.photo}` }} />
       </View>

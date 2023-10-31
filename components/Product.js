@@ -34,16 +34,16 @@ export default function Home({ navigation }) {
     navigation.navigate('ProductDetail', { data: data })
   }
 
-  const searchRequest = async () => {
-    console.log(search, filters)
+  // const searchRequest = async () => {
+  //   console.log(search, filters)
 
-    // setFilters({
-    //   ...filters,
-    //   title: search
-    // })
-    // await loadData()
-    // refetch({limit: LIMIT, offset: 0, title: search})
-  }
+  //   // setFilters({
+  //   //   ...filters,
+  //   //   title: search
+  //   // })
+  //   // await loadData()
+  //   // refetch({limit: LIMIT, offset: 0, title: search})
+  // }
 
   navigation.setOptions({
     header: () => {
@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
               }}
               placeholder='Поиск'
               placeholderTextColor='grey'
-              onSubmitEditing={searchRequest}
+              // onSubmitEditing={searchRequest}
               value={search}
             />
             <TouchableOpacity style={styles.filter} onPress={() => setIsVisible(true)}>
@@ -70,7 +70,7 @@ export default function Home({ navigation }) {
   })
 
   return (
-    <ScrollView style={{ backgroundColor: '#F4F6FB' }}>
+    <View style={{ backgroundColor: '#F4F6FB', height: '100%' }}>
       <ProductFilter
         isVisible={isVisible}
         setIsVisible={setIsVisible}
@@ -82,17 +82,14 @@ export default function Home({ navigation }) {
           <Text style={styles.loading}>Loading</Text>
         </View>
       ) : (
-        <View>
-          <ProductList
-            data={data.pages.map(page => page.data).flat()}
-            loadProduct={loadProduct}
-            hasNextPage={hasNextPage}
-            fetchNextPage={fetchNextPage}
-          ></ProductList>
-          {/* <Button onPress={()=>setOffset(offset+LIMIT)}>еще</Button> */}
-        </View>
+        <ProductList
+          data={data.pages.map(page => page.data).flat()}
+          loadProduct={loadProduct}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        ></ProductList>
       )}
-    </ScrollView>
+    </View>
   )
 }
 
