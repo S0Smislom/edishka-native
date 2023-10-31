@@ -1,36 +1,30 @@
 import * as React from 'react'
-import axios from 'axios'
 
 import {
-  TextInput,
   StyleSheet,
   View,
   SafeAreaView,
+  ScrollView,
   TouchableOpacity,
   Modal,
   Button,
-  Text,
-  ScrollView
+  Text
 } from 'react-native'
-import ProductList from './ProductList'
-import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 import { TextInput as PaperTextInput } from 'react-native-paper'
-import { useHeaderHeight, getDefaultHeaderHeight } from '@react-navigation/elements'
-import { useGetProducts, useGetProductsInfinite } from '../hooks/product/useGetProducts'
-import productService from '../services/product.service'
 
 export default function ProductFilter({ isVisible, setIsVisible, f, setF }) {
   const resetFilter = {
-    calories__gte: null,
-    calories__lte: null,
-    carbohydrates__gte: null,
-    carbohydrates__lte: null,
-    fats__gte: null,
-    fats__lte: null,
-    squirrels__gte: null,
-    squirrels__lte: null
+    calories__gte: '',
+    calories__lte: '',
+    carbohydrates__gte: '',
+    carbohydrates__lte: '',
+    fats__gte: '',
+    fats__lte: '',
+    squirrels__gte: '',
+    squirrels__lte: ''
   }
-  const [filters, setFilters] = React.useState(f)
+  const [filters, setFilters] = React.useState(resetFilter)
   console.log(filters)
 
   const resetFilters = () => {
@@ -40,12 +34,18 @@ export default function ProductFilter({ isVisible, setIsVisible, f, setF }) {
 
   const pressed = () => {
     console.log(filters)
-    setF(filters)
+    const toSet = {}
+    for (const key in filters) {
+      if (filters[key] != '') {
+        toSet[key] = filters[key]
+      }
+    }
+    setF(toSet)
     setIsVisible(false)
   }
   return (
-    <View>
-      <Modal visible={isVisible}>
+    <Modal visible={isVisible}>
+      <ScrollView>
         <SafeAreaView style={modalStyles.container}>
           <View style={modalStyles.headContainer}>
             <AntDesign
@@ -229,8 +229,8 @@ export default function ProductFilter({ isVisible, setIsVisible, f, setF }) {
             />
           </View>
         </SafeAreaView>
-      </Modal>
-    </View>
+      </ScrollView>
+    </Modal>
   )
 }
 const modalStyles = StyleSheet.create({

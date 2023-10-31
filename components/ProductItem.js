@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
+import { MEDIA_API_URL } from '../constants/api'
 
 export default function ProductItem({ loadProduct, data }) {
   const cardOnPress = () => {
@@ -16,7 +17,9 @@ export default function ProductItem({ loadProduct, data }) {
                         {uri: 'https://reactnative.dev/img/tiny_logo.png',}
                     }
                 /> */}
-      <View style={styles.greyBox}></View>
+      <View style={styles.greyBox}>
+        <Image style={styles.image} source={{ uri: `${MEDIA_API_URL}${data.photo}` }} />
+      </View>
       <Text style={styles.text}>{data.title}</Text>
       <TouchableOpacity style={styles.filter}>
         <FontAwesome name='reorder' size={24} color='grey' />
@@ -30,6 +33,10 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     backgroundColor: 'grey'
+  },
+  image: {
+    height: '100%',
+    width: '100%'
   },
   card: {
     flexDirection: 'row',

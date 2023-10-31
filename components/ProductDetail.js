@@ -2,6 +2,7 @@ import * as React from 'react'
 import { View, SafeAreaView, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 import { useGetProduct } from '../hooks/product/useGetProduct'
+import { MEDIA_API_URL } from '../constants/api'
 
 export default function ProductDetail({ navigation, route }) {
   navigation.setOptions({
@@ -24,7 +25,8 @@ export default function ProductDetail({ navigation, route }) {
         <View style={[styles.containerHead, styles.card]}>
           <View style={styles.imageContainer}>
             <Image
-              source={require('../assets/icon.png')} // Замените на путь к вашему изображению
+              source={{ uri: `${MEDIA_API_URL}${data.photo}` }}
+              defaultSource={require('../assets/icon.png')}
               style={styles.image}
             />
             {/* <Text>left</Text> */}

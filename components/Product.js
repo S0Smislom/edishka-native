@@ -1,5 +1,4 @@
 import * as React from 'react'
-import axios from 'axios'
 
 import {
   TextInput,
@@ -12,23 +11,23 @@ import {
   ScrollView
 } from 'react-native'
 import ProductList from './ProductList'
-import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons'
-import { TextInput as PaperTextInput } from 'react-native-paper'
-import { useHeaderHeight, getDefaultHeaderHeight } from '@react-navigation/elements'
-import { useGetProducts, useGetProductsInfinite } from '../hooks/product/useGetProducts'
-import productService from '../services/product.service'
+import { FontAwesome } from '@expo/vector-icons'
+import { useHeaderHeight } from '@react-navigation/elements'
+import { useGetProductsInfinite } from '../hooks/product/useGetProducts'
 import ProductFilter from './ProductFilter'
 
 export default function Home({ navigation }) {
+  // TODO add debaunse
   const [search, setSearch] = React.useState('')
   const [isVisible, setIsVisible] = React.useState(false)
   const [height, setHeight] = React.useState(useHeaderHeight())
-  const [offset, setOffset] = React.useState(0)
 
   const [filters, setFilters] = React.useState({})
 
-  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
-    useGetProductsInfinite({ title: search, ...filters })
+  const { data, hasNextPage, fetchNextPage, isLoading } = useGetProductsInfinite({
+    title: search,
+    ...filters
+  })
 
   const loadProduct = data => {
     console.log('daat', data)
@@ -84,7 +83,6 @@ export default function Home({ navigation }) {
         </View>
       ) : (
         <View>
-          <Text> Some text</Text>
           <ProductList
             data={data.pages.map(page => page.data).flat()}
             loadProduct={loadProduct}
