@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import ProductDetail from './components/ProductDetail'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MenuProvider } from 'react-native-popup-menu'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -34,8 +35,9 @@ export default function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <QueryClientProvider client={queryClient}>
-        <Tab.Navigator>
-          {/* <Tab.Screen
+        <MenuProvider>
+          <Tab.Navigator>
+            {/* <Tab.Screen
           name='Home'
           component={Home}
           options={({ navigation }) => ({
@@ -66,31 +68,32 @@ export default function Navigation() {
             }
           })}
         /> */}
-          <Tab.Screen
-            name='products'
-            component={ProductScreen}
-            options={({ navigation }) => ({
-              headerShown: false,
-              title: 'Продукты',
-              tabBarStyle: {
-                backgroundColor: '#749063'
-              },
-              tabBarLabelStyle: {
-                color: 'white',
-                fontFamily: 'mt-semibold'
-              },
-              tabBarIcon: tabInfo => {
-                return (
-                  <MaterialCommunityIcons
-                    name='baguette'
-                    size={24}
-                    color={tabInfo.focused ? '#fff' : '#000'}
-                  />
-                )
-              }
-            })}
-          />
-        </Tab.Navigator>
+            <Tab.Screen
+              name='products'
+              component={ProductScreen}
+              options={({ navigation }) => ({
+                headerShown: false,
+                title: 'Продукты',
+                tabBarStyle: {
+                  backgroundColor: '#749063'
+                },
+                tabBarLabelStyle: {
+                  color: 'white',
+                  fontFamily: 'mt-semibold'
+                },
+                tabBarIcon: tabInfo => {
+                  return (
+                    <MaterialCommunityIcons
+                      name='baguette'
+                      size={24}
+                      color={tabInfo.focused ? '#fff' : '#000'}
+                    />
+                  )
+                }
+              })}
+            />
+          </Tab.Navigator>
+        </MenuProvider>
       </QueryClientProvider>
     </NavigationContainer>
   )

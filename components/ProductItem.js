@@ -1,8 +1,9 @@
 import * as React from 'react'
 
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
-import { FontAwesome } from '@expo/vector-icons'
 import { MEDIA_API_URL } from '../constants/api'
+import { FontAwesome } from '@expo/vector-icons'
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu'
 
 export default function ProductItem({ loadProduct, data }) {
   const cardOnPress = () => {
@@ -16,9 +17,15 @@ export default function ProductItem({ loadProduct, data }) {
         <Image style={styles.image} source={{ uri: `${MEDIA_API_URL}${data.photo}` }} />
       </View>
       <Text style={styles.text}>{data.title}</Text>
-      <TouchableOpacity style={styles.filter}>
-        <FontAwesome name='reorder' size={24} color='grey' />
-      </TouchableOpacity>
+      <Menu>
+        <MenuTrigger>
+          <FontAwesome name='reorder' size={24} color='grey' />
+        </MenuTrigger>
+        <MenuOptions customStyles={menuStyles}>
+          <MenuOption onSelect={() => alert(`Save ${data.id}`)} text='Save' />
+          <MenuOption onSelect={() => alert(`Delete`)} text='Delete' />
+        </MenuOptions>
+      </Menu>
     </TouchableOpacity>
   )
 }
@@ -54,3 +61,18 @@ const styles = StyleSheet.create({
     paddingLeft: '2%'
   }
 })
+
+const menuStyles = {
+  // optionsContainer:{
+  //   width: 100,
+  //   alignItems: "center",
+  //   marginLeft: -200,
+  // },
+  optionWrapper: {
+    // backgroundColor: "green",
+    padding: 5,
+    textAlign: 'center'
+    // width:100
+  }
+  // optionText: styles.text
+}
