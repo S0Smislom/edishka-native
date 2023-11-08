@@ -10,6 +10,7 @@ import ProductDetail from './components/ProductDetail'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { MenuProvider } from 'react-native-popup-menu'
+import Auth from './components/Auth'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -36,67 +37,103 @@ export default function Navigation() {
     <NavigationContainer theme={MyTheme}>
       <QueryClientProvider client={queryClient}>
         <MenuProvider>
-          <Tab.Navigator>
-            {/* <Tab.Screen
-          name='Home'
-          component={Home}
-          options={({ navigation }) => ({
-            title: 'Главная',
-            headerTitleAlign: 'center',
-            headerTitleStyle: {
-              fontFamily: 'mt-semibold',
-              fontSize: 20
-            },
-            headerStyle: {
-              backgroundColor: '#749063',
-              fontFamily: 'mt-semibold'
-            },
-            tabBarStyle: {
-              backgroundColor: '#749063'
-            },
-            tabBarLabelStyle: {
-              color: 'white',
-              fontFamily: 'mt-semibold'
-              // color={tabInfo.focused ? "#fff" : "#000"}
-            },
-            tabBarIcon: tabInfo => {
-              return (
-                <Ionicons name='md-home' size={24} color={tabInfo.focused ? '#fff' : '#000'} />
-                // <Icon path={mdiAccount} />
-                // <Icon name="baguette" />
-              )
-            }
-          })}
-        /> */}
-            <Tab.Screen
-              name='products'
-              component={ProductScreen}
-              options={({ navigation }) => ({
-                headerShown: false,
-                title: 'Продукты',
-                tabBarStyle: {
-                  backgroundColor: '#749063'
-                },
-                tabBarLabelStyle: {
-                  color: 'white',
-                  fontFamily: 'mt-semibold'
-                },
-                tabBarIcon: tabInfo => {
-                  return (
-                    <MaterialCommunityIcons
-                      name='baguette'
-                      size={24}
-                      color={tabInfo.focused ? '#fff' : '#000'}
-                    />
-                  )
-                }
-              })}
-            />
-          </Tab.Navigator>
+          <TabNavigator></TabNavigator>
         </MenuProvider>
       </QueryClientProvider>
     </NavigationContainer>
   )
+}
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name='products'
+        component={ProductScreen}
+        options={({ navigation }) => ({
+          headerShown: false,
+          title: 'Продукты',
+          tabBarStyle: {
+            backgroundColor: '#749063'
+          },
+          tabBarLabelStyle: {
+            color: 'white',
+            fontFamily: 'mt-semibold'
+          },
+          tabBarIcon: tabInfo => {
+            return (
+              <MaterialCommunityIcons
+                name='baguette'
+                size={24}
+                color={tabInfo.focused ? '#fff' : '#000'}
+              />
+            )
+          }
+        })}
+      />
+      <Tab.Screen
+        name='account'
+        component={AccountScreen}
+        options={({ navigation }) => ({
+          headerShown: false,
+          title: 'Аккаунт',
+          tabBarStyle: {
+            backgroundColor: '#749063'
+          },
+          tabBarLabelStyle: {
+            color: 'white',
+            fontFamily: 'mt-semibold'
+          },
+          tabBarIcon: tabInfo => {
+            return (
+              <MaterialCommunityIcons
+                name='account'
+                size={24}
+                color={tabInfo.focused ? '#fff' : '#000'}
+              />
+            )
+          }
+        })}
+      />
+    </Tab.Navigator>
+  )
+}
+
+const AccountScreen = () => {
+  if (true) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name='auth'
+          component={Auth}
+          options={({ route }) => ({
+            title: 'Аккаунт',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontFamily: 'mt-semibold',
+              fontSize: 20,
+              color: 'white'
+              // width: "80%",
+            },
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: '#749063',
+              fontFamily: 'mt-semibold',
+              width: '80%'
+            }
+          })}
+        ></Stack.Screen>
+      </Stack.Navigator>
+    )
+  }
+  // return (
+  //   <Stack.Navigator>
+  //     <Stack.Screen
+  //       name=
+  //     >
+  //     </Stack.Screen>
+  //   </Stack.Navigator>
+  // )
 }
 
 const ProductScreen = () => {
