@@ -1,19 +1,29 @@
 import * as React from 'react'
-import { View, SafeAreaView, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native'
 import { Entypo } from '@expo/vector-icons'
-import { useGetProduct } from '../hooks/product/useGetProduct'
-import { MEDIA_API_URL } from '../constants/api'
+import { useGetProduct } from '../../../hooks/product/useGetProduct'
+import { MEDIA_API_URL } from '../../../constants/api'
 
 export default function ProductDetail({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => {
-      return (
-        <TouchableOpacity>
-          <Entypo name='dots-three-horizontal' size={24} color='white' />
-        </TouchableOpacity>
-      )
-    }
-  })
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity>
+            <Entypo name='dots-three-horizontal' size={24} color='white' />
+          </TouchableOpacity>
+        )
+      }
+    })
+  }, [])
 
   const { data, isLoading } = useGetProduct(route.params.data.id)
 
@@ -21,12 +31,12 @@ export default function ProductDetail({ navigation, route }) {
     return <Text>Loading</Text>
   } else {
     return (
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={[styles.containerHead, styles.card]}>
           <View style={styles.imageContainer}>
             <Image
               source={{ uri: `${MEDIA_API_URL}${data.photo}` }}
-              defaultSource={require('../assets/icon.png')}
+              defaultSource={require('../../../assets/icon.png')}
               style={styles.image}
             />
             {/* <Text>left</Text> */}
@@ -40,20 +50,21 @@ export default function ProductDetail({ navigation, route }) {
             <ProductStructure title='углеводы' value={data.carbohydrates} />
           </View>
         </View>
-        {data?.description ? (
-          <View style={[styles.card, styles.description]}>
-            <Text style={styles.descriptionTitle}>Описание:</Text>
-            <Text style={styles.descriptionText}>{data.description}</Text>
-          </View>
-        ) : null}
-      </SafeAreaView>
+        {/* {data?.description ? ( */}
+        <View style={[styles.card, styles.description]}>
+          <Text style={styles.descriptionTitle}>Описание:</Text>
+          <Text style={styles.descriptionText}>{data.description}</Text>
+        </View>
+        {/* ) : null} */}
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    // width: '80%',
+    width: '100%',
     maxWidth: 900,
     marginHorizontal: 'auto'
   },
@@ -64,7 +75,7 @@ const styles = StyleSheet.create({
   },
   containerHead: {
     flexDirection: 'row', // Располагаем элементы в ряд
-    marginTop: 50
+    marginTop: 10
   },
   description: {
     marginTop: 10

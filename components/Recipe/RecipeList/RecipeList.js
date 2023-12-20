@@ -1,22 +1,23 @@
 import * as React from 'react'
 
 import { View, FlatList, StyleSheet, Text } from 'react-native'
-import ProductItem from './ProductItem'
+import RecipeItem from '../RecipeItem/RecipeItem'
+// import ProductItem from './ProductItem'
 
-export default function ProductList({ data, loadProduct, fetchNextPage, hasNextPage }) {
+export default function RecipeList({ data, loadRecipe, fetchNextPage, hasNextPage }) {
   const loadMore = () => {
     console.log(hasNextPage)
     if (hasNextPage === true) {
       fetchNextPage()
     }
   }
-  if (data.length > 0) {
+  if (data?.length > 0) {
     return (
       <FlatList
         scrollEnabled={true}
         showsVerticalScrollIndicator={true}
         data={data}
-        renderItem={({ item }) => <ProductItem loadProduct={loadProduct} data={item} />}
+        renderItem={({ item }) => <RecipeItem loadRecipe={loadRecipe} data={item} />}
         keyExtractor={item => item.id}
         onEndReached={loadMore}
         onEndReachedThreshold={0.3}
