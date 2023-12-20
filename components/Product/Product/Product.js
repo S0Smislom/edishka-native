@@ -10,17 +10,18 @@ import {
   Text,
   ScrollView
 } from 'react-native'
-import ProductList from './ProductList'
+import ProductList from '../ProductList/ProductList'
 import { FontAwesome } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { useGetProductsInfinite } from '../hooks/product/useGetProducts'
-import ProductFilter from './ProductFilter'
+import { useGetProductsInfinite } from '../../../hooks/product/useGetProducts'
+import ProductFilter from '../ProductFilter/ProductFilter'
+import { useDefaultHeaderHeight } from '../../../hooks/useDefaultHeaderHeight'
 
 export default function Home({ navigation }) {
   // TODO add debaunse
   const [search, setSearch] = React.useState('')
   const [isVisible, setIsVisible] = React.useState(false)
-  const [height, setHeight] = React.useState(useHeaderHeight())
+  const height = useDefaultHeaderHeight()
 
   const [filters, setFilters] = React.useState({})
 
@@ -34,22 +35,11 @@ export default function Home({ navigation }) {
     navigation.navigate('ProductDetail', { data: data })
   }
 
-  // const searchRequest = async () => {
-  //   console.log(search, filters)
-
-  //   // setFilters({
-  //   //   ...filters,
-  //   //   title: search
-  //   // })
-  //   // await loadData()
-  //   // refetch({limit: LIMIT, offset: 0, title: search})
-  // }
-
-  navigation.setOptions({
-    header: () => {
-      return (
-        <View style={[styles.header, { height: height }]}>
-          <View style={styles.container}>
+  return (
+    <View style={{ height: '100%' }}>
+      <SafeAreaView style={[styles.header, { height: height, alignItems: 'center' }]}>
+        <View style={styles.container}>
+          <View style={{ width: '100%' }}>
             <TextInput
               style={styles.input}
               onChangeText={text => {
@@ -60,35 +50,32 @@ export default function Home({ navigation }) {
               // onSubmitEditing={searchRequest}
               value={search}
             />
-            <TouchableOpacity style={styles.filter} onPress={() => setIsVisible(true)}>
-              <FontAwesome name='sliders' size={24} color='white' />
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity style={styles.filter} onPress={() => setIsVisible(true)}>
+            <FontAwesome name='sliders' size={24} color='white' />
+          </TouchableOpacity>
         </View>
-      )
-    }
-  })
-
-  return (
-    <View style={{ backgroundColor: '#F4F6FB', height: '100%' }}>
-      <ProductFilter
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        f={filters}
-        setF={setFilters}
-      />
-      {isLoading ? (
-        <View style={styles.loadingConainer}>
-          <Text style={styles.loading}>Loading</Text>
-        </View>
-      ) : (
-        <ProductList
-          data={data.pages.map(page => page.data).flat()}
-          loadProduct={loadProduct}
-          hasNextPage={hasNextPage}
-          fetchNextPage={fetchNextPage}
-        ></ProductList>
-      )}
+      </SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: '#F4F6FB', height: '100%' }}>
+        <ProductFilter
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          f={filters}
+          setF={setFilters}
+        />
+        {isLoading ? (
+          <View style={styles.loadingConainer}>
+            <Text style={styles.loading}>Loading</Text>
+          </View>
+        ) : (
+          <ProductList
+            data={data?.pages.map(page => page.data).flat()}
+            loadProduct={loadProduct}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          ></ProductList>
+        )}
+      </SafeAreaView>
     </View>
   )
 }

@@ -1,7 +1,7 @@
 import { axiosClassic } from '../http'
 
-class ProductService {
-  URL_PATH = '/product'
+class RecipeService {
+  URL_PATH = '/recipe'
 
   async getAll(params) {
     const response = await axiosClassic.get(this.URL_PATH, { params })
@@ -13,4 +13,4 @@ class ProductService {
   }
 }
 
-export default new ProductService()
+export default new RecipeService()

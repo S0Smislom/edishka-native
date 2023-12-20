@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
-import { MEDIA_API_URL } from '../constants/api'
+import { MEDIA_API_URL } from '../../../constants/api'
 import { FontAwesome } from '@expo/vector-icons'
 import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu'
 
@@ -44,10 +44,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '80%',
+    width: '90%',
+    padding: 10,
     height: 70,
     marginTop: 10,
-    margin: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     paddingHorizontal: '5%',
     backgroundColor: '#FFF',
     // borderWidth: 1,
